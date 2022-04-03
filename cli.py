@@ -12,7 +12,7 @@ def option():
     while(True):
         try:
             print(
-                "\nWelcome to Rain Forest Systems\nPlease select your option (0 to exit): ")
+                "\nWelcome to Rain Forest Systems\nPlease select your option: ")
             print("1. Load Data")
             print("2. View Customers")
             print("3. View Customer Details")
@@ -27,7 +27,7 @@ def option():
             print("12. Delete a Product")
             print("13. Delete an Order\n")
 
-            num = int(input("Option #: "))
+            num = int(input("Option # (0 to exit): "))
             if(num > 13 or num < 0):
                 print("Please enter an option between 1 and 13.")
 

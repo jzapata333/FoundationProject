@@ -208,7 +208,7 @@ def placeOrder():
                     "Invalid Order date and/or Order time. Please try again.")
             else:
                 date_time = date + "T" + time + ".000Z"
-                print("datetime: ", date_time)
+                print("Datetime: ", date_time)
                 order["products"] = []
 
             while(True):
@@ -235,13 +235,29 @@ def placeOrder():
                             order["date"] = date_time
                             order["products"].append(
                                 current_product)
-                            print(order)
+                            # print(order)
+                            print("\nOrder Summary:")
+                            print("Order ID: ", order["id"])
+                            print("Customer ID: ", order["userId"])
+                            print("Datetime: ", order["date"])
+                            for p in order["products"]:
+                                print("Product ID: ", p["productId"])
+                                print("Product Quantity: ", p["quantity"])
                             try:
                                 next_step = int(input(
                                     "Would you like to add more Products to this order (0 to exit, 1 to add product)? "))
-                                if(next_step == 0):
+                                if(next_step != 0 and next_step != 1):
+                                    print("Invalid data. Please try again.")
+                                elif(next_step == 0):
                                     print("\nCustomer's Order:")
-                                    print(order)
+                                    # print(order)
+                                    print("Order ID: ", order["id"])
+                                    print("Customer ID: ", order["userId"])
+                                    print("Datetime: ", order["date"])
+                                    for p in order["products"]:
+                                        print("Product ID: ", p["productId"])
+                                        print("Product Quantity: ",
+                                              p["quantity"])
                                     o_collection.insert_one(order)
                                     print(
                                         f"\nOrder with ID {id} has been successfully placed.")
@@ -282,10 +298,24 @@ def createProduct():
                 dictionary["description"] = description
                 dictionary["category"] = category
                 dictionary["image"] = image
-                print("\nYou entered: ")
-                print(dictionary)
-                product = p_collection.insert_one(dictionary)
-                print("\nProduct has been successfully created.")
+                # print(dictionary)
+                print("\nProduct Summary: ")
+                print("Product ID: ", dictionary["id"])
+                print("Title: ", dictionary["title"])
+                print("Price: ", dictionary["price"])
+                print("Description: ", dictionary["description"])
+                print("Category: ", dictionary["category"])
+                print("Image URL: ", dictionary["image"])
+
+                next_step = int(
+                    input("\nProceed to save Product (0 to exit, 1 to save)? "))
+                if(next_step != 0 and next_step != 1):
+                    print("Invalid data. Please try again.")
+                elif(next_step == 0):
+                    createProduct()
+                else:
+                    product = p_collection.insert_one(dictionary)
+                    print("\nProduct has been successfully created.")
         except:
             print("Invalid data. Please try again.")
 
@@ -485,9 +515,16 @@ def deleteProduct():
                 print(
                     f"Product with ID {id} does not exist. Please try again.")
             else:
-                product = p_collection.delete_one({"id": id})
-                print(
-                    f"Product with ID {id} has been successfully deleted.")
+                next_step = int(
+                    input("Proceed to delete Product (0 to exit, 1 to delete)? "))
+                if(next_step != 0 and next_step != 1):
+                    print("Invalid data. Please try again.")
+                elif(next_step == 0):
+                    deleteProduct()
+                else:
+                    product = p_collection.delete_one({"id": id})
+                    print(
+                        f"Product with ID {id} has been successfully deleted.")
         except:
             print(
                 "Invalid data. Be sure to enter a numeric value for Product ID.")
@@ -505,9 +542,16 @@ def deleteOrder():
                 print(
                     f"Order with ID {id} does not exist. Please try again.")
             else:
-                order = o_collection.delete_one({"id": id})
-                print(
-                    f"Order with ID {id} has been successfully deleted.")
+                next_step = int(
+                    input("Proceed to delete Order (0 to exit, 1 to delete)? "))
+                if(next_step != 0 and next_step != 1):
+                    print("Invalid data. Please try again.")
+                elif(next_step == 0):
+                    deleteOrder()
+                else:
+                    order = o_collection.delete_one({"id": id})
+                    print(
+                        f"Order with ID {id} has been successfully deleted.")
         except:
             print(
                 "Invalid data. Be sure to enter a numeric value for Order ID.")
