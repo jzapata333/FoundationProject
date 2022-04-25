@@ -31,7 +31,7 @@ In one terminal window:
 
 In another terminal window:
 `python3 cli.py`
-
+>![MainMenu](/images/MainMenu.png)
 ### Notes
 - Make sure your JSON files are in the same directory as cli.py
 - Make sure pymongo is installed
